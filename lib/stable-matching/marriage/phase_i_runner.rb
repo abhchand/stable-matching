@@ -24,6 +24,32 @@ its preference list, then `j` must also remove `i` from its list
 This cycle continues until ever male/female has a match.
 Mathematically, every participant is guranteed a match so this algorithm
 always converges on a solution.
+
+Example:
+
+'A' proposes to 'O'
+'O' accepts 'A'
+'B' proposes to 'P'
+'P' accepts 'B'
+'C' proposes to 'M'
+'M' accepts 'C'
+'D' proposes to 'P'
+'P' rejects 'D'
+'E' proposes to 'O'
+'O' rejects 'E'
+'D' proposes to 'M'
+'M' accepts 'D', rejects 'C'
+'E' proposes to 'L'
+'L' accepts 'E'
+'C' proposes to 'P'
+'P' rejects 'C'
+'C' proposes to 'L'
+'L' rejects 'C'
+'C' proposes to 'O'
+'O' rejects 'C'
+'C' proposes to 'N'
+'N' accepts 'C'
+
 =end
 
 require_relative "../phase_runner"

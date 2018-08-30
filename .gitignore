@@ -9,6 +9,7 @@
 /pkg/
 /spec/reports/
 /tmp/
+/spec/examples.txt
 
 # Custom
 TODO

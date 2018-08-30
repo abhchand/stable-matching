@@ -15,7 +15,7 @@ This gem provides a ruby implementation of the following matching algorithms
 
 See or run `bin/stable-roommates-example` for an example usage.
 
-Specify an input of ordered preferences as a hash of arrays. Keys may be `String` or `Fixnum`
+Specify an input of ordered preferences as a hash of arrays. Keys may be `String` or `Fixnum` and preference table must include an even number of members.
 
 ``` ruby
 preference_table = {
@@ -30,6 +30,8 @@ preference_table = {
 StableRoommate.solve!(preference_table)
 #=> {1=>6, 2=>4, 3=>5, 4=>2, 5=>3, 6=>1}
 ```
+
+The implementation of this algorithm is *not* guranteed to return a mathematically stable solution and may raise an error if no solution is found (see Errors below).
 
 ## Stable Marriage
 
@@ -58,6 +60,8 @@ puts StableMarriage.solve!(alpha_preferences, beta_preferences,)
 #=> {"A"=>"O", "B"=>"P", "C"=>"N", "D"=>"M", "E"=>"L", "L"=>"E", "M"=>"D", "N"=>"C", "O"=>"A", "P"=>"B"}
 ```
 
+The implementation of this algorithm is always guranteed to return a mathematically stable solution.
+
 # Errors
 
 Your process should be prepared to handle the following errors when calling the stable matching library
@@ -67,19 +71,6 @@ StableMatching::Error
   |- StableMatching::NoStableSolutionError
   |- StableMatching::InvalidPreferences
 ```
-
-Errors are raised for either (a) failed validations or (b) mathematical instability
-
-## Validations
-
-All inputs will be validated to ensure the preference tables are of a valid structure. These include common sense format validations like "are the elements unique?", "are all the keys either strings or integers?", etc..
-
-
-## Mathematical Stability
-
-Often times a mathematically stable solution may not exist, in which case the above error will be raised.
-
-The Stable Marriage algorithm is guranteed to always produce a mathematically stable solution.
 
 # Logging
 

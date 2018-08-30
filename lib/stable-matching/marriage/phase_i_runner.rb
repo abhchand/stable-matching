@@ -26,7 +26,7 @@ Mathematically, every participant is guranteed a match so this algorithm
 always converges on a solution.
 =end
 
-require_relative "../common/phase_runner"
+require_relative "../phase_runner"
 
 class StableMatching
   class Marriage

@@ -1,4 +1,4 @@
-require_relative "../common/validator"
+require_relative "../validator"
 
 class StableMatching
   class Marriage

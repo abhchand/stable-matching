@@ -42,7 +42,7 @@ The output of this phase is a further reduced table is as follows
 "F" => ["A", "B", "D"]
 =end
 
-require_relative "../common/phase_runner"
+require_relative "../phase_runner"
 
 class StableMatching
   class Roommate

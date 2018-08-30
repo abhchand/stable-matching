@@ -1,4 +1,4 @@
-require_relative "../common/preference_table"
+require_relative "../preference_table"
 
 class StableMatching
   class Roommate

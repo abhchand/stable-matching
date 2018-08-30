@@ -1,5 +1,5 @@
-require_relative "common/stable_matching"
-require_relative "common/logging_helper"
+require_relative "stable_matching"
+require_relative "logging_helper"
 
 require_relative "marriage/validator"
 require_relative "marriage/preference_table"

@@ -75,7 +75,7 @@ preference remaining
 "F" => ["A"]
 =end
 
-require_relative "../common/phase_runner"
+require_relative "../phase_runner"
 
 class StableMatching
   class Roommate

@@ -1,4 +1,4 @@
-# Provides a ruby implementation of several commong matching algorithms
+# Provides a ruby implementation of several common matching algorithms
 #
 # Author::    Abhishek Chandrasekhar  (mailto:me@abhchand.me)
 # License::   MIT

@@ -11,8 +11,7 @@ def solve(male_preferences, female_preferences)
   pp female_preferences
 
   begin
-    # pp StableMatching::Marriage.solve!(male_preferences, female_preferences)
-    pp StableMatching::Marriage.new(male_preferences, female_preferences, log_level: Logger::DEBUG).solve!
+    pp StableMatching::Marriage.solve!(male_preferences, female_preferences)
   rescue StableMatching::InvalidPreferences => e
     puts e.message + ""
   end

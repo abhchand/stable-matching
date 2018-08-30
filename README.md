@@ -85,13 +85,13 @@ The Stable Marriage algorithm is guranteed to always produce a mathematically st
 
 You may optionally pass a logger that will output the progress of the algorithm.
 
-To utilize this option you'll have to instantiate an algorithm object yourself with a logger option and call `#solve!` on it.
+To utilize this option you'll have to instantiate an algorithm object yourself with a `:logger` option and then call `#solve!`.
 
 ``` ruby
-file = File.open("foo.log")
-my_logger = Logger.new(file)
+logger = Logger.new(STDOUT)
+logger.level = Logger::DEBUG
 
-StableRoommate.new(preference_table, logger: my_logger).solve!
+StableRoommate.new(preference_table, logger: logger).solve!
 ```
 
 # Benchmark / Performance

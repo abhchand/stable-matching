@@ -8,13 +8,13 @@ class StableMatching
   class PreferenceTable < SimpleDelegator
     attr_reader :name_to_member_mapping
 
-    def initialize(preference_table_data)
-      members = initialize_members_from(preference_table_data)
+    def initialize(raw_preference_table)
+      members = initialize_members_from(raw_preference_table)
 
-      preference_table_data.each do |name, preference_list_data|
+      raw_preference_table.each do |name, raw_preference_list|
         generate_preference_list(
           find_member_by_name(name),
-          preference_list_data
+          raw_preference_list
         )
       end
 
@@ -55,19 +55,19 @@ class StableMatching
       @name_to_member_mapping[name]
     end
 
-    def initialize_members_from(preference_table_data)
+    def initialize_members_from(raw_preference_table)
       @name_to_member_mapping = {}
 
-      preference_table_data.keys.each do |name|
+      raw_preference_table.keys.each do |name|
         @name_to_member_mapping[name] = Member.new(name)
       end
 
       @name_to_member_mapping.values
     end
 
-    def generate_preference_list(member, preference_list_data)
+    def generate_preference_list(member, raw_preference_list)
       member_list =
-        preference_list_data.map { |name| find_member_by_name(name) }
+        raw_preference_list.map { |name| find_member_by_name(name) }
 
       member.preference_list = PreferenceList.new(member_list)
     end

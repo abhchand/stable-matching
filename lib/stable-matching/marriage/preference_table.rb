@@ -5,9 +5,9 @@ class StableMatching
     class PreferenceTable < StableMatching::PreferenceTable
       attr_accessor :partner_table
 
-      def self.initialize_pair(preference_table_data_a, preference_table_data_b)
-        table_a = new(preference_table_data_a)
-        table_b = new(preference_table_data_b)
+      def self.initialize_pair(raw_preference_table_a, raw_preference_table_b)
+        table_a = new(raw_preference_table_a)
+        table_b = new(raw_preference_table_b)
 
         table_a.partner_table = table_b
         table_b.partner_table = table_a
@@ -15,10 +15,10 @@ class StableMatching
         return table_a, table_b
       end
 
-      def initialize(preference_table_data)
-        members = initialize_members_from(preference_table_data)
+      def initialize(raw_preference_table)
+        members = initialize_members_from(raw_preference_table)
 
-        @preference_table_data = preference_table_data
+        @raw_preference_table = raw_preference_table
 
         # Avoid calling the parent initializer, but we still need to set
         # the delegated object. Thankfully SimpleDelegator offers a method
@@ -29,10 +29,10 @@ class StableMatching
       def partner_table=(partner_table)
         @partner_table = partner_table
 
-        @preference_table_data.each do |name, preference_list_data|
+        @raw_preference_table.each do |name, raw_preference_list|
           generate_preference_list(
             find_member_by_name(name),
-            preference_list_data,
+            raw_preference_list,
             partner_table
           )
         end
@@ -47,8 +47,8 @@ class StableMatching
 
       private
 
-      def generate_preference_list(member, preference_list_data, partner_table)
-        member_list = preference_list_data.map do |name|
+      def generate_preference_list(member, raw_preference_list, partner_table)
+        member_list = raw_preference_list.map do |name|
           partner_table.name_to_member_mapping[name]
         end
 

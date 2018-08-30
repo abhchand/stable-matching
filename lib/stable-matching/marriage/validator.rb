@@ -4,9 +4,9 @@ class StableMatching
   class Marriage
     class Validator < StableMatching::Validator
 
-      def self.validate_pair!(male_preferences, female_preferences)
-        new(male_preferences, female_preferences).validate!
-        new(female_preferences, male_preferences).validate!
+      def self.validate_pair!(alpha_preferences, beta_preferences)
+        new(alpha_preferences, beta_preferences).validate!
+        new(beta_preferences, alpha_preferences).validate!
       end
 
       def initialize(preference_table, partner_table)

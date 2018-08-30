@@ -6,19 +6,19 @@ $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 require "pp"
 require "stable-matching/marriage"
 
-def solve(male_preferences, female_preferences)
-  pp male_preferences
-  pp female_preferences
+def solve(alpha_preferences, beta_preferences)
+  pp alpha_preferences
+  pp beta_preferences
 
   begin
-    pp StableMatching::Marriage.solve!(male_preferences, female_preferences)
+    pp StableMatching::Marriage.solve!(alpha_preferences, beta_preferences)
   rescue StableMatching::InvalidPreferences => e
     puts e.message + ""
   end
 end
 
 puts "=== Example 1 - Sample marriage problem"
-male_preferences = {
+alpha_preferences = {
   "A" => ["O", "M", "N", "L", "P"],
   "B" => ["P", "N", "M", "L", "O"],
   "C" => ["M", "P", "L", "O", "N"],
@@ -26,18 +26,18 @@ male_preferences = {
   "E" => ["O", "L", "M", "N", "P"],
 }
 
-female_preferences = {
+beta_preferences = {
   "L" => ["D", "B", "E", "C", "A"],
   "M" => ["B", "A", "D", "C", "E"],
   "N" => ["A", "C", "E", "D", "B"],
   "O" => ["D", "A", "C", "B", "E"],
   "P" => ["B", "E", "A", "C", "D"],
 }
-solve(male_preferences, female_preferences)
+solve(alpha_preferences, beta_preferences)
 puts "\n"
 
 puts "=== Example 2 - Bad input that fails validation"
-male_preferences = {
+alpha_preferences = {
   "A" => ["O", "M", "N", "L", "P"],
   "B" => ["P", "N", "M", "L", "O"],
   "C" => ["M", "P", "L", "O", "N"],
@@ -45,12 +45,12 @@ male_preferences = {
   "E" => ["O", "L", "M", "N", "P"],
 }
 
-female_preferences = {
+beta_preferences = {
   "L" => ["D", "B", "E", "C", "A"],
   "M" => ["B", "A", "D", "C", "E"],
   "N" => ["A", "C", "E", "D", "B"],
   "O" => ["D", "A", "C", "B", "E"],
   "P" => ["X", "X", "X", "X", "Y"],
 }
-solve(male_preferences, female_preferences)
+solve(alpha_preferences, beta_preferences)
 puts "\n"

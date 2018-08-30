@@ -9,16 +9,16 @@ class StableMatching
   class Marriage
     include StableMatching::LoggingHelper
 
-    def self.solve!(male_preferences, female_preferences)
-      new(male_preferences, female_preferences).solve!
+    def self.solve!(alpha_preferences, beta_preferences)
+      new(alpha_preferences, beta_preferences).solve!
     end
 
-    def initialize(male_preferences, female_preferences, opts = {})
-      @orig_male_preferences = male_preferences
-      @orig_female_preferences = female_preferences
+    def initialize(alpha_preferences, beta_preferences, opts = {})
+      @orig_alpha_preferences = alpha_preferences
+      @orig_beta_preferences = beta_preferences
 
-      @male_preferences, @female_preferences =
-        PreferenceTable.initialize_pair(male_preferences, female_preferences)
+      @alpha_preferences, @beta_preferences =
+        PreferenceTable.initialize_pair(alpha_preferences, beta_preferences)
 
       set_logger(opts)
     end
@@ -29,11 +29,11 @@ class StableMatching
       # Ideally this would be in the initializer, but we wait to
       # instantiate the `PreferenceTable` models until after validation
       # Oh well..
-      female_preferences.partner_table = male_preferences
-      male_preferences.partner_table = female_preferences
+      beta_preferences.partner_table = alpha_preferences
+      alpha_preferences.partner_table = beta_preferences
 
       @logger.info("Running Phase I")
-      PhaseIRunner.new(male_preferences, female_preferences, logger: @logger).run
+      PhaseIRunner.new(alpha_preferences, beta_preferences, logger: @logger).run
 
       build_solution
     end
@@ -41,26 +41,26 @@ class StableMatching
     private
 
     def validate!
-      Validator.validate_pair!(@orig_male_preferences, @orig_female_preferences)
+      Validator.validate_pair!(@orig_alpha_preferences, @orig_beta_preferences)
     end
 
-    def male_preferences
-      @male_preferences ||= PreferenceTable.new(@orig_male_preferences)
+    def alpha_preferences
+      @alpha_preferences ||= PreferenceTable.new(@orig_alpha_preferences)
     end
 
-    def female_preferences
-      @female_preferences ||= PreferenceTable.new(@orig_female_preferences)
+    def beta_preferences
+      @beta_preferences ||= PreferenceTable.new(@orig_beta_preferences)
     end
 
     def build_solution
       solution = {}
 
-      @male_preferences.members.each do |spouse|
-        solution[spouse.name] = spouse.current_acceptor.name
+      @alpha_preferences.members.each do |partner|
+        solution[partner.name] = partner.current_acceptor.name
       end
 
-      @female_preferences.members.each do |spouse|
-        solution[spouse.name] = spouse.current_proposer.name
+      @beta_preferences.members.each do |partner|
+        solution[partner.name] = partner.current_proposer.name
       end
 
       solution

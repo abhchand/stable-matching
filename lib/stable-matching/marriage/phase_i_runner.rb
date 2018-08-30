@@ -1,31 +1,56 @@
 =begin
 Implements the Gale-Shapley (1962) algorithm.
 
+Calculates a stable match between two groups - alpha and beta - given their
+individual preference lists for members of the other group
+
 See:
   https://en.wikipedia.org/wiki/Stable_marriage_problem#Solution
   https://www.youtube.com/watch?v=GsBf3fJFpSw
 
-Each male "proposes" to his top female preference that has not yet rejected
-him.
+Each alpha "proposes" to their top beta preference that has not yet rejected
+them.
 
 During the proposal, one of 3 things can happen -
 
-1. The proposed female has not received a proposal and immediately accepts
-2. The proposed female has already received a proposal, but preferes this one
-   over the existing proposal. The proposed female "rejects" her initial
-   proposer and accepts this new one
-3. The proposed female has already received a proposal, and still prefers the
-   existing one to the new proposal. The proposed female "rejects" the new
-   proposal
+1. The proposed beta has not received a proposal.
+    => They immediately accept
+2. The proposed beta has already received a proposal, but preferes this one
+   over the existing proposal.
+    => The proposed beta "rejects" the initial proposal and accepts this new one
+3. The proposed beta has already received a proposal, and prefers the
+   existing over this new proposal.
+    => The proposed beta "rejects" the new proposal
 
-In the above situations, every rejection is mutual - if `i` removes `j` from
-its preference list, then `j` must also remove `i` from its list
+Note: Rejections are mutual. If `i` removes `j` from their preference list,
+      then `j` must also remove `i` from its list
 
-This cycle continues until ever male/female has a match.
+This cycle continues until every alpha/beta has a match.
+
 Mathematically, every participant is guranteed a match so this algorithm
 always converges on a solution.
 
-Example:
+EXAMPLE:
+
+Take the following preference lists
+
+alpha preferences:
+"A"=>["O", "M", "N", "L", "P"]
+"B"=>["P", "N", "M", "L", "O"]
+"C"=>["M", "P", "L", "O", "N"]
+"D"=>["P", "M", "O", "N", "L"]
+"E"=>["O", "L", "M", "N", "P"]
+
+beta preferences:
+"L"=>["D", "B", "E", "C", "A"]
+"M"=>["B", "A", "D", "C", "E"]
+"N"=>["A", "C", "E", "D", "B"]
+"O"=>["D", "A", "C", "B", "E"]
+"P"=>["B", "E", "A", "C", "D"]
+
+We always start with the first unmatched alpha user.
+Initially this is "A" (we only cycle through alphas since they propose to the
+betas). The sequence of events are -
 
 'A' proposes to 'O'
 'O' accepts 'A'
@@ -50,6 +75,23 @@ Example:
 'C' proposes to 'N'
 'N' accepts 'C'
 
+At this point there are no alpha users left unmatched (and by definition, no
+corresponding beta users left unmatched). All alpha members have had their
+proposals accepted by a beta user.
+
+The resulting solution is
+
+"A" => "O"
+"B" => "P"
+"C" => "N"
+"D" => "M"
+"E" => "L"
+"L" => "E"
+"M" => "D"
+"N" => "C"
+"O" => "A"
+"P" => "B"
+
 =end
 
 require_relative "../phase_runner"
@@ -57,18 +99,18 @@ require_relative "../phase_runner"
 class StableMatching
   class Marriage
     class PhaseIRunner < StableMatching::PhaseRunner
-      def initialize(male_preferences, female_preferences, opts = {})
-        @male_preferences = male_preferences
-        @female_preferences = female_preferences
+      def initialize(alpha_preferences, beta_preferences, opts = {})
+        @alpha_preferences = alpha_preferences
+        @beta_preferences = beta_preferences
 
         @logger = opts.fetch(:logger)
       end
 
       def run
-        while @male_preferences.unmatched.any?
-          @male_preferences.unmatched.each_with_index do |spouse, i|
-            top_choice = spouse.first_preference
-            simulate_proposal(spouse, top_choice)
+        while @alpha_preferences.unmatched.any?
+          @alpha_preferences.unmatched.each do |partner|
+            top_choice = partner.first_preference
+            simulate_proposal(partner, top_choice)
           end
         end
       end

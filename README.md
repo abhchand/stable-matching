@@ -38,7 +38,7 @@ See or run `bin/stable-marriage-example` for an example usage
 Specify an input of ordered preferences as a hash of arrays for two groups. Keys may be `String` or `Fixnum`
 
 ```
-male_preferences = {
+alpha_preferences = {
   "A" => ["O", "M", "N", "L", "P"],
   "B" => ["P", "N", "M", "L", "O"],
   "C" => ["M", "P", "L", "O", "N"],
@@ -46,7 +46,7 @@ male_preferences = {
   "E" => ["O", "L", "M", "N", "P"],
 }
 
-female_preferences = {
+beta_preferences = {
   "L" => ["D", "B", "E", "C", "A"],
   "M" => ["B", "A", "D", "C", "E"],
   "N" => ["A", "C", "E", "D", "B"],
@@ -54,7 +54,7 @@ female_preferences = {
   "P" => ["B", "E", "A", "C", "D"],
 }
 
-puts StableMarriage.solve!(male_preferences, female_preferences,)
+puts StableMarriage.solve!(alpha_preferences, beta_preferences,)
 #=> {"A"=>"O", "B"=>"P", "C"=>"N", "D"=>"M", "E"=>"L", "L"=>"E", "M"=>"D", "N"=>"C", "O"=>"A", "P"=>"B"}
 ```
 

@@ -1,3 +1,8 @@
+# Provides a ruby implementation of several commong matching algorithms
+#
+# Author::    Abhishek Chandrasekhar  (mailto:me@abhchand.me)
+# License::   MIT
+
 require "logger"
 
 class StableMatching

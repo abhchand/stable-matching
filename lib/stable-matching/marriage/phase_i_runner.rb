@@ -1,3 +1,8 @@
+# Provides a ruby implementation of several commong matching algorithms
+#
+# Author::    Abhishek Chandrasekhar  (mailto:me@abhchand.me)
+# License::   MIT
+
 =begin
 Implements the Gale-Shapley (1962) algorithm.
 

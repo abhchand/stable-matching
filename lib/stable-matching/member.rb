@@ -1,3 +1,8 @@
+# Provides a ruby implementation of several commong matching algorithms
+#
+# Author::    Abhishek Chandrasekhar  (mailto:me@abhchand.me)
+# License::   MIT
+
 class StableMatching
   class Member
     attr_reader :name, :received_proposals_from, :accepted_proposal_from

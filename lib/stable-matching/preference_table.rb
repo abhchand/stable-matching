@@ -1,3 +1,8 @@
+# Provides a ruby implementation of several commong matching algorithms
+#
+# Author::    Abhishek Chandrasekhar  (mailto:me@abhchand.me)
+# License::   MIT
+
 require "delegate"
 require "pp"
 
@@ -44,7 +49,6 @@ class StableMatching
       counts == [1]
     end
 
-    # This returns the same object - explain
     def members
       __getobj__
     end

@@ -20,6 +20,7 @@ Gem::Specification.new do |spec|
   spec.executables   = spec.files.grep(%r{^exe/}) { |f| File.basename(f) }
   spec.require_paths = ["lib"]
 
+  spec.add_development_dependency "rdoc", "~> 6.0", ">= 6.0.4"
   spec.add_development_dependency "rubocop", "~> 0.49.1"
   # rubocop:enable ExtraSpacing
 end

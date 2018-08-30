@@ -1,0 +1,57 @@
+#!/usr/bin/env ruby
+
+lib = File.expand_path("../../lib", __FILE__)
+$LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
+
+require "pp"
+require "stable-matching/marriage"
+
+def solve(male_preferences, female_preferences)
+  pp male_preferences
+  pp female_preferences
+
+  begin
+    # pp StableMatching::Marriage.solve!(male_preferences, female_preferences)
+    pp StableMatching::Marriage.new(male_preferences, female_preferences, log_level: Logger::DEBUG).solve!
+  rescue StableMatching::InvalidPreferences => e
+    puts e.message + ""
+  end
+end
+
+puts "=== Example 1 - Sample marriage problem"
+male_preferences = {
+  "A" => ["O", "M", "N", "L", "P"],
+  "B" => ["P", "N", "M", "L", "O"],
+  "C" => ["M", "P", "L", "O", "N"],
+  "D" => ["P", "M", "O", "N", "L"],
+  "E" => ["O", "L", "M", "N", "P"],
+}
+
+female_preferences = {
+  "L" => ["D", "B", "E", "C", "A"],
+  "M" => ["B", "A", "D", "C", "E"],
+  "N" => ["A", "C", "E", "D", "B"],
+  "O" => ["D", "A", "C", "B", "E"],
+  "P" => ["B", "E", "A", "C", "D"],
+}
+solve(male_preferences, female_preferences)
+puts "\n"
+
+puts "=== Example 2 - Bad input that fails validation"
+male_preferences = {
+  "A" => ["O", "M", "N", "L", "P"],
+  "B" => ["P", "N", "M", "L", "O"],
+  "C" => ["M", "P", "L", "O", "N"],
+  "D" => ["P", "M", "O", "N", "L"],
+  "E" => ["O", "L", "M", "N", "P"],
+}
+
+female_preferences = {
+  "L" => ["D", "B", "E", "C", "A"],
+  "M" => ["B", "A", "D", "C", "E"],
+  "N" => ["A", "C", "E", "D", "B"],
+  "O" => ["D", "A", "C", "B", "E"],
+  "P" => ["X", "X", "X", "X", "Y"],
+}
+solve(male_preferences, female_preferences)
+puts "\n"

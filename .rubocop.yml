@@ -1,0 +1,7 @@
+Layout/DotPosition:
+  EnforcedStyle: leading
+Layout/MultilineOperationIndentation:
+  Enabled: true
+  EnforcedStyle: indented
+Style/StringLiterals:
+  EnforcedStyle: double_quotes

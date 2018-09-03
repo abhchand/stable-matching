@@ -8,7 +8,6 @@ require_relative "../validator"
 class StableMatching
   class Marriage
     class Validator < StableMatching::Validator
-
       def self.validate_pair!(alpha_preferences, beta_preferences)
         new(alpha_preferences, beta_preferences).validate!
         new(beta_preferences, alpha_preferences).validate!
@@ -27,7 +26,7 @@ class StableMatching
         when !symmetrical?            then handle_not_symmetrical
         end
 
-        raise ::StableMatching::InvalidPreferences.new(@error) if @error
+        raise ::StableMatching::InvalidPreferences, @error if @error
       end
 
       private
@@ -37,12 +36,12 @@ class StableMatching
           expected_members = @partner_table.keys - [name]
           actual_members = preference_list
 
-          unless expected_members.sort == actual_members.sort
-            @name = name
-            @extra = actual_members - expected_members
-            @missing = expected_members - actual_members
-            return false
-          end
+          next if expected_members.sort == actual_members.sort
+
+          @name = name
+          @extra = actual_members - expected_members
+          @missing = expected_members - actual_members
+          return false
         end
 
         true

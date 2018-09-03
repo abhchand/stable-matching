@@ -38,7 +38,7 @@ class StableMatching
     end
 
     def unmatched
-      have_accepted = members.select(&:has_accepted_proposal?)
+      have_accepted = members.select(&:accepted_proposal?)
       have_been_accepted = have_accepted.map(&:current_proposer)
 
       members - have_been_accepted

@@ -1,6 +1,7 @@
 require "spec_helper"
 
 RSpec.describe "Stable Roommate Problem", type: :integration do
+  # rubocop:disable Style/WordArray
   it "returns the correct solution" do
     preferences = {
       "A" => ["B", "D", "F", "C", "E"],
@@ -12,12 +13,19 @@ RSpec.describe "Stable Roommate Problem", type: :integration do
     }
 
     actual = StableMatching::Roommate.solve!(preferences)
-    expected = {"A"=>"F", "B"=>"E", "C"=>"D", "D"=>"C", "E"=>"B", "F"=>"A"}
+    expected = {
+      "A" => "F",
+      "B" => "E",
+      "C" => "D",
+      "D" => "C",
+      "E" => "B",
+      "F" => "A"
+    }
 
     expect(actual).to eq(expected)
   end
 
-  it "works with integer keys" do
+  it "works with string or integer keys" do
     preferences = {
       1 => [2, 4, 6, 3, 5],
       2 => [4, 5, 6, 1, 3],
@@ -28,7 +36,14 @@ RSpec.describe "Stable Roommate Problem", type: :integration do
     }
 
     actual = StableMatching::Roommate.solve!(preferences)
-    expected = {1=>6, 2=>5, 3=>4, 4=>3, 5=>2, 6=>1}
+    expected = {
+      1 => 6,
+      2 => 5,
+      3 => 4,
+      4 => 3,
+      5 => 2,
+      6 => 1
+    }
 
     expect(actual).to eq(expected)
   end
@@ -44,7 +59,14 @@ RSpec.describe "Stable Roommate Problem", type: :integration do
     }
 
     actual = StableMatching::Roommate.solve!(preferences)
-    expected = {"A"=>"F", "B"=>"E", "C"=>"D", "D"=>"C", "E"=>"B", "F"=>"A"}
+    expected = {
+      "A" => "F",
+      "B" => "E",
+      "C" => "D",
+      "D" => "C",
+      "E" => "B",
+      "F" => "A"
+    }
 
     expect(actual).to eq(expected)
   end
@@ -58,10 +80,15 @@ RSpec.describe "Stable Roommate Problem", type: :integration do
         "A" => ["B", "C", "D"],
         "B" => ["C", "A", "D"],
         "C" => ["A", "B", "D"],
-        "D" => ["A", "B", "C"],
+        "D" => ["A", "B", "C"]
       }
 
-
+      expect do
+        StableMatching::Roommate.solve!(preferences)
+      end.to raise_error(
+        StableMatching::NoStableSolutionError,
+        "No stable match found!"
+      )
     end
 
     it "raises an error when a cycle is detected in Phase III" do
@@ -86,4 +113,5 @@ RSpec.describe "Stable Roommate Problem", type: :integration do
       )
     end
   end
+  # rubocop:enable Style/WordArray
 end

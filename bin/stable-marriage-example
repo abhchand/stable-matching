@@ -23,7 +23,7 @@ alpha_preferences = {
   "B" => ["P", "N", "M", "L", "O"],
   "C" => ["M", "P", "L", "O", "N"],
   "D" => ["P", "M", "O", "N", "L"],
-  "E" => ["O", "L", "M", "N", "P"],
+  "E" => ["O", "L", "M", "N", "P"]
 }
 
 beta_preferences = {
@@ -31,7 +31,7 @@ beta_preferences = {
   "M" => ["B", "A", "D", "C", "E"],
   "N" => ["A", "C", "E", "D", "B"],
   "O" => ["D", "A", "C", "B", "E"],
-  "P" => ["B", "E", "A", "C", "D"],
+  "P" => ["B", "E", "A", "C", "D"]
 }
 solve(alpha_preferences, beta_preferences)
 puts "\n"
@@ -42,7 +42,7 @@ alpha_preferences = {
   "B" => ["P", "N", "M", "L", "O"],
   "C" => ["M", "P", "L", "O", "N"],
   "D" => ["P", "M", "O", "N", "L"],
-  "E" => ["O", "L", "M", "N", "P"],
+  "E" => ["O", "L", "M", "N", "P"]
 }
 
 beta_preferences = {
@@ -50,7 +50,7 @@ beta_preferences = {
   "M" => ["B", "A", "D", "C", "E"],
   "N" => ["A", "C", "E", "D", "B"],
   "O" => ["D", "A", "C", "B", "E"],
-  "P" => ["X", "X", "X", "X", "Y"],
+  "P" => ["X", "X", "X", "X", "Y"]
 }
 solve(alpha_preferences, beta_preferences)
 puts "\n"

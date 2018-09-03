@@ -77,7 +77,7 @@ class StableMatching
           .preference_list
           .index(roommate.current_proposer)
 
-        roommate.preference_list[current_proposer_index+1..-1]
+        roommate.preference_list[current_proposer_index + 1..-1]
       end
     end
   end

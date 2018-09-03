@@ -57,7 +57,7 @@ class StableMatching
     #
     # <tt>preference_table</tt>::
     #     A +Hash+ of +Array+ values specifying the preferences of the group.
-    #     +Array+ can contain +String+ or +Fixnum+ entries.
+    #     +Array+ can contain +String+ or +Integer+ entries.
     # <tt>opts[:logger]</tt>::
     #     +Logger+ instance to use for logging
     #

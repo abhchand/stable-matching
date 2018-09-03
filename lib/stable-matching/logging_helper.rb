@@ -7,8 +7,10 @@ require "logger"
 
 class StableMatching
   module LoggingHelper
+    # rubocop:disable Style/AccessorMethodName
     def set_logger(opts = {})
       @logger = opts.key?(:logger) ? opts[:logger] : Logger.new(nil)
     end
+    # rubocop:enable Style/AccessorMethodName
   end
 end

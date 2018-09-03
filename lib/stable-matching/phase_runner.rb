@@ -5,14 +5,13 @@
 
 class StableMatching
   class PhaseRunner
-
     private
 
     def simulate_proposal(proposer, proposed)
       @logger.debug("'#{proposer.name}' proposes to '#{proposed.name}'")
 
       case
-      when !proposed.has_accepted_proposal?
+      when !proposed.accepted_proposal?
         accept(proposer, proposed)
       when proposed.would_prefer?(proposer)
         accept_better_proposal(proposer, proposed)

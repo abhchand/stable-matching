@@ -104,11 +104,8 @@ class StableMatching
       private
 
       def ensure_table_is_stable!
-        unless @preference_table.stable?
-          raise StableMatching::NoStableSolutionError.new(
-            "No stable match found!"
-          )
-        end
+        return true if @preference_table.stable?
+        raise StableMatching::NoStableSolutionError, "No stable match found!"
       end
     end
   end

@@ -5,7 +5,7 @@ RSpec.describe "Stable Marriage Validation", type: :service do
     it "succeeds when all validations pass" do
       input_a = {
         1 => [3, 4],
-        2 => [4, 3],
+        2 => [4, 3]
       }
 
       input_b = {
@@ -58,7 +58,7 @@ RSpec.describe "Stable Marriage Validation", type: :service do
         input_a = {
           1 => [4, 5, 6],
           2 => [5, 6, 4],
-          3 => [6, 4, 5],
+          3 => [6, 4, 5]
         }
 
         input_b = {
@@ -93,7 +93,7 @@ RSpec.describe "Stable Marriage Validation", type: :service do
       it "raises an error when any preference lists are empty" do
         input_a = {
           1 => [],
-          2 => [4, 3],
+          2 => [4, 3]
         }
 
         input_b = {
@@ -114,7 +114,7 @@ RSpec.describe "Stable Marriage Validation", type: :service do
       it "raises an error when input keys are not strings or integers" do
         input_a = {
           1.to_f => [3, 4],
-          2.to_f => [4, 3],
+          2.to_f => [4, 3]
         }
 
         input_b = {
@@ -126,14 +126,14 @@ RSpec.describe "Stable Marriage Validation", type: :service do
           StableMatching::Marriage::Validator.validate_pair!(input_a, input_b)
         end.to raise_error(
           StableMatching::InvalidPreferences,
-          /All keys must be String or Fixnum/
+          /All keys must be String or Integer/
         )
       end
 
       it "raises an error when preference lists is not strings or integers" do
         input_a = {
           1 => [3, 4].map(&:to_f),
-          2 => [4, 3].map(&:to_f),
+          2 => [4, 3].map(&:to_f)
         }
 
         input_b = {
@@ -145,14 +145,14 @@ RSpec.describe "Stable Marriage Validation", type: :service do
           StableMatching::Marriage::Validator.validate_pair!(input_a, input_b)
         end.to raise_error(
           StableMatching::InvalidPreferences,
-          /All keys must be String or Fixnum/
+          /All keys must be String or Integer/
         )
       end
 
       it "raises an error when keys are of mixed type" do
         input_a = {
           1 => ["B", 4],
-          2 => [4, "B"],
+          2 => [4, "B"]
         }
 
         input_b = {
@@ -164,7 +164,7 @@ RSpec.describe "Stable Marriage Validation", type: :service do
           StableMatching::Marriage::Validator.validate_pair!(input_a, input_b)
         end.to raise_error(
           StableMatching::InvalidPreferences,
-          /All keys must be String or Fixnum/
+          /All keys must be String or Integer/
         )
       end
     end
@@ -173,7 +173,7 @@ RSpec.describe "Stable Marriage Validation", type: :service do
       it "raises an error when preference lists have missing keys" do
         input_a = {
           1 => [3],
-          2 => [4, 3],
+          2 => [4, 3]
         }
 
         input_b = {
@@ -192,7 +192,7 @@ RSpec.describe "Stable Marriage Validation", type: :service do
       it "raises an error when preference lists have extra keys" do
         input_a = {
           1 => [3, 4, 9],
-          2 => [4, 3],
+          2 => [4, 3]
         }
 
         input_b = {
@@ -211,7 +211,7 @@ RSpec.describe "Stable Marriage Validation", type: :service do
       it "raises an error when partner table preference lists are malformed" do
         input_a = {
           1 => [3, 4],
-          2 => [4, 3],
+          2 => [4, 3]
         }
 
         input_b = {

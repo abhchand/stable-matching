@@ -8,6 +8,7 @@ require_relative "../validator"
 class StableMatching
   class Roommate
     class Validator < StableMatching::Validator
+      # rubocop:disable Metrics/CyclomaticComplexity
       def validate!
         case
         when !hash_of_arrays?         then handle_not_hash_of_arrays
@@ -17,8 +18,9 @@ class StableMatching
         when !symmetrical?            then handle_not_symmetrical
         end
 
-        raise ::StableMatching::InvalidPreferences.new(@error) if @error
+        raise ::StableMatching::InvalidPreferences, @error if @error
       end
+      # rubocop:enable Metrics/CyclomaticComplexity
     end
   end
 end

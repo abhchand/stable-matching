@@ -47,7 +47,7 @@ RSpec.describe "Stable Roommate Validation", type: :service do
         input = {
           1 => [2, 3],
           2 => [3, 1],
-          3 => [1, 2],
+          3 => [1, 2]
         }
 
         expect do
@@ -101,7 +101,7 @@ RSpec.describe "Stable Roommate Validation", type: :service do
           StableMatching::Roommate::Validator.validate!(input)
         end.to raise_error(
           StableMatching::InvalidPreferences,
-          /All keys must be String or Fixnum/
+          /All keys must be String or Integer/
         )
       end
 
@@ -117,7 +117,7 @@ RSpec.describe "Stable Roommate Validation", type: :service do
           StableMatching::Roommate::Validator.validate!(input)
         end.to raise_error(
           StableMatching::InvalidPreferences,
-          /All keys must be String or Fixnum/
+          /All keys must be String or Integer/
         )
       end
 
@@ -133,7 +133,7 @@ RSpec.describe "Stable Roommate Validation", type: :service do
           StableMatching::Roommate::Validator.validate!(input)
         end.to raise_error(
           StableMatching::InvalidPreferences,
-          /All keys must be String or Fixnum/
+          /All keys must be String or Integer/
         )
       end
     end

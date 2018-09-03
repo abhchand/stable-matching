@@ -15,7 +15,7 @@ This gem provides a ruby implementation of the following matching algorithms
 
 See or run `bin/stable-roommates-example` for an example usage.
 
-Specify an input of ordered preferences as a hash of arrays. Keys may be `String` or `Fixnum` and preference table must include an even number of members.
+Specify an input of ordered preferences as a hash of arrays. Keys may be `String` or `Integer` and preference table must include an even number of members.
 
 ``` ruby
 preference_table = {
@@ -37,7 +37,7 @@ The implementation of this algorithm is *not* guranteed to return a mathematical
 
 See or run `bin/stable-marriage-example` for an example usage
 
-Specify an input of ordered preferences as a hash of arrays for two groups. Keys may be `String` or `Fixnum`
+Specify an input of ordered preferences as a hash of arrays for two groups. Keys may be `String` or `Integer`
 
 ```
 alpha_preferences = {

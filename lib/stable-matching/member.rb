@@ -35,12 +35,12 @@ class StableMatching
       end
     end
 
-    def has_accepted_proposal?
+    def accepted_proposal?
       !current_proposer.nil?
     end
 
     def would_prefer?(new_proposer)
-      return true unless has_accepted_proposal?
+      return true unless accepted_proposal?
       preference_of(new_proposer) > preference_of(current_proposer)
     end
 
@@ -72,12 +72,11 @@ class StableMatching
 
     def preference_of(member)
       index = preference_list.index(member)
+      return if index.nil?
 
-      unless index.nil?
-        # Return the preference as the inverse of the index so a smaller index
-        # has a greater preference
-        preference_list.size - index
-      end
+      # Return the preference as the inverse of the index so a smaller index
+      # has a greater preference
+      preference_list.size - index
     end
   end
 end

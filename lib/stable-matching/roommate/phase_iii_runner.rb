@@ -95,26 +95,12 @@ class StableMatching
           x = [@preference_table.members_with_multiple_preferences.first]
           y = []
 
-          while !any_repeats?(x)
+          until any_repeats?(x)
             y << x.last.second_preference
             x << y.last.last_preference
           end
 
-          # Take only the elements involved in the start and end of the cycle
-          index = x.index(x.last)
-          x = x[index..-1]
-          y = y[index..-1]
-
-          msg = "Found a cycle in - "
-          y.each_with_index { |r1, i| msg << "(#{x[i].name}, #{y[i].name})" }
-          msg << "(#{x.last.name}, )"
-          @logger.debug(msg)
-
-          y.each_with_index do |r1, i|
-            r2 = x[i+1]
-            @logger.debug("Mutually rejecting '#{r1.name}', '#{r2.name}'")
-            r2.reject!(r1)
-          end
+          detect_and_reject_cycles(x, y)
         end
       end
 
@@ -124,14 +110,30 @@ class StableMatching
         arr.uniq.count != arr.count
       end
 
-      def table_is_stable?
-        if @preference_table.stable?
-          true
-        else
-          raise StableMatching::NoStableSolutionError.new(
-            "No stable match found!"
-          )
+      def detect_and_reject_cycles(x, y)
+        x, y = retrieve_bookend_elements(x, y)
+
+        msg = "Found a cycle in - "
+        y.each_with_index { |_, i| msg << "(#{x[i].name}, #{y[i].name})" }
+        msg << "(#{x.last.name}, )"
+        @logger.debug(msg)
+
+        y.each_with_index do |r1, i|
+          r2 = x[i + 1]
+          @logger.debug("Mutually rejecting '#{r1.name}', '#{r2.name}'")
+          r2.reject!(r1)
         end
+      end
+
+      def retrieve_bookend_elements(x, y)
+        # Take only the elements involved in the start and end of the cycle
+        index = x.index(x.last)
+        [x[index..-1], y[index..-1]]
+      end
+
+      def table_is_stable?
+        return true if @preference_table.stable?
+        raise StableMatching::NoStableSolutionError, "No stable match found!"
       end
     end
   end

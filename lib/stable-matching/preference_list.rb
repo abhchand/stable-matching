@@ -7,7 +7,7 @@ require "delegate"
 
 class StableMatching
   class PreferenceList < SimpleDelegator
-    def initialize(preference_list, opts = {})
+    def initialize(preference_list)
       super(preference_list)
     end
 

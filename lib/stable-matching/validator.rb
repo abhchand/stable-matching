@@ -52,11 +52,11 @@ class StableMatching
     end
 
     def handle_not_strings_or_integers
-      @error = "All keys must be String or Fixnum"
+      @error = "All keys must be String or Integer"
     end
 
     def even_sized?
-      @preference_table.keys.size % 2 == 0
+      @preference_table.keys.size.even?
     end
 
     def handle_not_even_sized
@@ -68,12 +68,12 @@ class StableMatching
         expected_members = @preference_table.keys - [name]
         actual_members = preference_list
 
-        unless expected_members.sort == actual_members.sort
-          @name = name
-          @extra = actual_members - expected_members
-          @missing = expected_members - actual_members
-          return false
-        end
+        next if expected_members.sort == actual_members.sort
+
+        @name = name
+        @extra = actual_members - expected_members
+        @missing = expected_members - actual_members
+        return false
       end
 
       true
@@ -85,10 +85,8 @@ class StableMatching
         "The missing elements are: #{@missing}"
     end
 
-    private
-
     def valid_element?(element)
-      (element.is_a?(String) || element.is_a?(Fixnum)) &&
+      (element.is_a?(String) || element.is_a?(Integer)) &&
         element.class == @element_klass
     end
   end

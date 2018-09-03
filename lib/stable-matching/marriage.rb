@@ -64,10 +64,10 @@ class StableMatching
     #
     # <tt>alpha_preferences</tt>::
     #     A +Hash+ of +Array+ values specifying the preferences of the alpha
-    #     group. +Array+ can contain +String+ or +Fixnum+ entries.
+    #     group. +Array+ can contain +String+ or +Integer+ entries.
     # <tt>beta_preferences</tt>::
     #     A +Hash+ of +Array+ values specifying the preferences of the beta
-    #     group. +Array+ can contain +String+ or +Fixnum+ entries.
+    #     group. +Array+ can contain +String+ or +Integer+ entries.
     # <tt>opts[:logger]</tt>::
     #     +Logger+ instance to use for logging
     #

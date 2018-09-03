@@ -17,7 +17,7 @@ class StableMatching
         table_a.partner_table = table_b
         table_b.partner_table = table_a
 
-        return table_a, table_b
+        [table_a, table_b]
       end
 
       def initialize(raw_preference_table)
@@ -44,7 +44,7 @@ class StableMatching
       end
 
       def unmatched
-        have_accepted = partner_table.members.select(&:has_accepted_proposal?)
+        have_accepted = partner_table.members.select(&:accepted_proposal?)
         have_been_accepted = have_accepted.map(&:current_proposer)
 
         members - have_been_accepted

@@ -31,38 +31,27 @@ class StableMatching
     end
 
     def empty?
-      @preference_table.empty?
+      return true if @preference_table.empty?
+
+      @preference_table.each_value.any?(&:empty?)
     end
 
     def handle_empty
       @error = "Preferences table can not empty"
     end
 
-    def unique_keys?
-      keys = @preference_table.keys
-      uniq_keys = keys.uniq
+    def strings_or_integers?
+      @preference_table.each do |key, array|
+        @element_klass ||= key.class
 
-      if keys.size != uniq_keys.uniq.size
-        @extra_keys = (keys - uniq_keys).uniq
-        return false
+        return false unless valid_element?(key)
+        array.each { |value| return false unless valid_element?(value) }
       end
 
       true
     end
 
-    def handle_not_unique_keys
-      @error = "Duplicate keys found: #{@extra_keys}"
-    end
-
-    def string_or_integer_keys?
-      @preference_table.keys.each do |key|
-        return false unless key.is_a?(String) || key.is_a?(Fixnum)
-      end
-
-      true
-    end
-
-    def handle_not_string_or_integer_keys
+    def handle_not_strings_or_integers
       @error = "All keys must be String or Fixnum"
     end
 
@@ -94,6 +83,13 @@ class StableMatching
       @error = "Entry #{@name} has invalid preferences. "\
         "The extra elements are: #{@extra}. "\
         "The missing elements are: #{@missing}"
+    end
+
+    private
+
+    def valid_element?(element)
+      (element.is_a?(String) || element.is_a?(Fixnum)) &&
+        element.class == @element_klass
     end
   end
 end

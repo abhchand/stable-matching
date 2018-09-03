@@ -1,7 +1,31 @@
+AllCops:
+  Exclude:
+    - "stable-matching.gemspec"
+    - "bin/*"
+Metrics/AbcSize:
+  Enabled: false
 Layout/DotPosition:
   EnforcedStyle: leading
 Layout/MultilineOperationIndentation:
   Enabled: true
   EnforcedStyle: indented
+Style/BlockComments:
+  Enabled: false
+Style/Documentation:
+  Enabled: false
+Style/EmptyCaseCondition:
+  Enabled: false
 Style/StringLiterals:
   EnforcedStyle: double_quotes
+Metrics/BlockLength:
+  ExcludedMethods:
+    - context
+    - describe
+    - it
+    - feature
+    - shared_examples
+    - shared_examples_for
+    - namespace
+    - task
+    - proc
+    - draw

@@ -1,4 +1,8 @@
+
+
 # Stable Matching
+
+![Stable Matching](https://gitlab.com/abhchand/stable-matching/raw/master/meta/logo.png)
 
 [![Build Status](https://gitlab.com/abhchand/stable-matching/badges/master/build.svg)](https://gitlab.com/abhchand/stable-matching/pipelines)
 

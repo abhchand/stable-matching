@@ -1,5 +1,7 @@
 # Stable Matching
 
+[![Build Status](https://gitlab.com/abhchand/stable-matching/badges/master/build.svg)](https://gitlab.com/abhchand/stable-matching/pipelines)
+
 A ruby implementation of various stable matching algorithms.
 
 # Background

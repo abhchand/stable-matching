@@ -1,0 +1,28 @@
+variables:
+  RUNNING_ON_CI_SERVER: 1
+
+cache:
+  key: "$CI_BUILD_REF_NAME"
+  paths:
+    - /cache
+
+before_script:
+  # System
+  - apt-get update -qq
+
+  # Ruby
+  - ruby -v
+  - which ruby
+
+  # Ruby Gems
+  - 'echo ''gem: --no-ri --no-rdoc'' > ~/.gemrc'
+  - gem install bundler
+  - bundle install --path=/cache --without production --jobs $(nproc) "${FLAGS[@]}"
+
+rspec:
+  script:
+    - bundle exec rspec --color --require spec_helper --format progress --no-profile
+
+rubocop:
+  script:
+    - bundle exec rubocop --display-cop-names

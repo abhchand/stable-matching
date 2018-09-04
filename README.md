@@ -20,17 +20,7 @@ This gem provides ruby implementations of algorithms that solve the following ma
 In your Gemfile:
 
 ```
-source "https://rubygems.org"
-
-...
-
-gem "stable-matching"
-```
-
-Then run:
-
-```
-bundle install
+gem install stable-matching
 ```
 
 # Quick Start

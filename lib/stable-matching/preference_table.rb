@@ -45,8 +45,9 @@ class StableMatching
     end
 
     def complete?
-      counts = members.map { |member| member.preference_list.count }.uniq
-      counts == [1]
+      # Does every member have only one preference remaining?
+      counts = members.map { |member| member.preference_list.count }
+      counts.uniq == [1]
     end
 
     def members

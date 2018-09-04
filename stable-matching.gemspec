@@ -9,6 +9,7 @@ Gem::Specification.new do |spec|
   spec.version       = StableMatching::VERSION
   spec.authors       = ["Abhishek Chandrasekhar"]
   spec.email         = ["me@abhchand.me"]
+  spec.licenses      = ['MIT']
 
   spec.summary       = "A ruby implementation of various stable matching algorithms"
   spec.homepage      = "https://gitlab.com/abhchand/stable-matching"

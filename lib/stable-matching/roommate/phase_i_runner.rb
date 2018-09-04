@@ -90,10 +90,10 @@ class StableMatching
         while @preference_table.unmatched.any?
           ensure_table_is_stable!
 
-          roommate = @preference_table.unmatched.first
-          top_choice = roommate.first_preference
+          member = @preference_table.unmatched.first
+          top_choice = member.first_preference
 
-          simulate_proposal(roommate, top_choice)
+          simulate_proposal(member, top_choice)
         end
 
         # Check once more since final iteration may have left the table unstable

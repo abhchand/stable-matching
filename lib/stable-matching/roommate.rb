@@ -114,8 +114,8 @@ class StableMatching
     def build_solution
       solution = {}
 
-      preference_table.members.each do |roommate|
-        solution[roommate.name] = roommate.first_preference.name
+      preference_table.members.each do |member|
+        solution[member.name] = member.first_preference.name
       end
 
       solution

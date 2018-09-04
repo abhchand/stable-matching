@@ -45,7 +45,7 @@
 #   E => [C, B],
 #   F => [A, B, D]
 #
-# Start with "A" since it is the first roommate with at least two preferences.
+# Start with "A" since it is the first member with at least two preferences.
 #
 # Build (Xi, Yi) pairs as follows
 #

@@ -93,7 +93,31 @@ StableRoommate.new(preference_table, logger: logger).solve!
 
 # Benchmark / Performance
 
-Given that many of these algorithms run in polynomial time (`O(n^2)`), performance degrades when processing more than ~1000 elements, since at that level a total of 1000 x 1000 = 1,000,000 comparisons are being made.
+Below are some benchmarks for runtimes captured on a machine running OS X 10.11.5 (El Capitan) / 2.5 GHz Intel Core i7.
+
+You can run `bin/benchmark` on any machine to regenerate these benchmarks
+
+Note: Many combinatorics algorithms run in quadratic time (`O(n^2)`) and therfore performance degrades significantly when processing a large number of elements.
+
+### Stable Roommates
+
+```
+  N  | Avg Runtime (sec)
+-----|------------------
+  10 |            0.103
+ 100 |            1.075
+ 250 |           17.372
+```
+
+### Stable Marriage
+
+```
+   N  | Avg Runtime (sec)
+------|------------------
+   10 |            0.004
+  100 |            0.053
+ 1000 |            0.334
+```
 
 # Issues
 

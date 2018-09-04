@@ -1,0 +1,82 @@
+#!/usr/bin/env ruby
+
+lib = File.expand_path("../../lib", __FILE__)
+$LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
+
+require "benchmark"
+require "json"
+
+require "stable-matching/roommate"
+require "stable-matching/marriage"
+
+BENCHMARK_DIR = File.expand_path("../benchmark", File.dirname(__FILE__)).freeze
+
+def label_for(members, iterations = 10)
+  "#{members} members / #{iterations} iteration(s):"
+end
+
+def read_file(filepath)
+  raw_preferences = JSON.parse(File.read(filepath))
+  preferences = {}
+
+  raw_preferences.each { |k, v| preferences[k.to_i] = v }
+
+  preferences
+end
+
+puts "=== Stable Roommates"
+Benchmark.bm do |x|
+  benchmark_dir = BENCHMARK_DIR + "/stable-roommates/"
+
+  preferences = read_file(benchmark_dir + "size-10.json")
+  x.report(label_for(10)) do
+    100.times do
+      StableMatching::Roommate.solve!(preferences)
+    end
+  end
+
+  preferences = read_file(benchmark_dir + "size-100.json")
+  x.report(label_for(100)) do
+    10.times do
+      StableMatching::Roommate.solve!(preferences)
+    end
+  end
+
+  # Solving a N=1000 member set for Stable Roommates takes a very long time, so
+  # reduce it to 250 members and 1 iteration
+  preferences = read_file(benchmark_dir + "size-250.json")
+  x.report(label_for(250, 1)) do
+    1.times do
+      StableMatching::Roommate.solve!(preferences)
+    end
+  end
+end
+
+puts "=== Stable Marriage"
+Benchmark.bm do |x|
+  benchmark_dir = BENCHMARK_DIR + "/stable-marriage/"
+
+  preferences_alpha = read_file(benchmark_dir + "size-10-alpha.json")
+  preferences_beta = read_file(benchmark_dir + "size-10-beta.json")
+  x.report(label_for(10)) do
+    100.times do
+      StableMatching::Marriage.solve!(preferences_alpha, preferences_beta)
+    end
+  end
+
+  preferences_alpha = read_file(benchmark_dir + "size-100-alpha.json")
+  preferences_beta = read_file(benchmark_dir + "size-100-beta.json")
+  x.report(label_for(100)) do
+    10.times do
+      StableMatching::Marriage.solve!(preferences_alpha, preferences_beta)
+    end
+  end
+
+  preferences_alpha = read_file(benchmark_dir + "size-1000-alpha.json")
+  preferences_beta = read_file(benchmark_dir + "size-1000-beta.json")
+  x.report(label_for(1000)) do
+    1.times do
+      StableMatching::Marriage.solve!(preferences_alpha, preferences_beta)
+    end
+  end
+end

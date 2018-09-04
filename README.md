@@ -17,8 +17,6 @@ This gem provides ruby implementations of algorithms that solve the following ma
 
 # Install
 
-In your Gemfile:
-
 ```
 gem install stable-matching
 ```

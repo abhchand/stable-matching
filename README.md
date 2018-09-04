@@ -12,8 +12,8 @@ A ruby implementation of various stable matching algorithms.
 
 This gem provides ruby implementations of algorithms that solve the following matching problems:
 
-- [Stable Roommates Problem](https://en.wikipedia.org/wiki/Stable_roommates_problem)
-- [Stable Marriage Problem](https://en.wikipedia.org/wiki/Stable_marriage_problem)
+- [Stable Roommates Problem](https://en.wikipedia.org/wiki/Stable_roommates_problem) - Matching among a group of members
+- [Stable Marriage Problem](https://en.wikipedia.org/wiki/Stable_marriage_problem) - Matching between two groups of members
 
 # Install
 

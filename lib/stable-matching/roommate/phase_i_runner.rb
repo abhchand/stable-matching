@@ -3,79 +3,78 @@
 # Author::    Abhishek Chandrasekhar  (mailto:me@abhchand.me)
 # License::   MIT
 
-=begin
-Implements Phase I of Irving's (1985) Stable Roommates algorithm.
-
-See:
-- https://en.wikipedia.org/wiki/Stable_roommates_problem
-- https://www.youtube.com/watch?v=5QLxAp8mRKo
-
-In this round each roommate "proposes" to their top preference that has not
-yet rejected them.
-
-During the proposal, one of 3 things can happen
-
-1. The proposed roommate has not received a proposal and immediately accepts
-2. The proposed roommate has already received a proposal, but preferes this one
-   over the existing proposal. The proposed roommate "rejects" it's initial
-   proposer and accepts this new one
-3. The proposed roommate has already received a proposal, and still prefers the
-   existing one to the new proposal. The proposed roommate "rejects" the new
-   proposal
-
-In the above situations, every rejection is mutual - if `i` removes `j` from
-its preference list, then `j` must also remove `i` from its list
-
-This cycle continues until one of two things happens
-
-A. Every roommate has a match - i.e. every user has proposed and been accepted
-   In this case we move on to Phase II
-B. At least one roommate has exhausted their preference list. In this case there
-   is no mathematically stable matching
-
-EXAMPLE:
-
-Take the following preference lists
-
-"A" => ["B", "D", "F", "C", "E"],
-"B" => ["D", "E", "F", "A", "C"],
-"C" => ["D", "E", "F", "A", "B"],
-"D" => ["F", "C", "A", "E", "B"],
-"E" => ["F", "C", "D", "B", "A"],
-"F" => ["A", "B", "D", "C", "E"]
-
-We always start with the first unmatched user. Initially this is "A". The
-sequence of events are -
-
-'A' proposes to 'B'
-'B' accepts 'A'
-'B' proposes to 'D'
-'D' accepts 'B'
-'C' proposes to 'D'
-'D' accepts 'C', rejects 'B'
-'B' proposes to 'E'
-'E' accepts 'B'
-'D' proposes to 'F'
-'F' accepts 'D'
-'E' proposes to 'F'
-'F' rejects
-'E' proposes to 'C'
-'C' accepts 'E'
-'F' proposes to 'A'
-'A' accepts 'F'
-
-The result of this phase is a reduced table, as shown below.
-
-A "-" indicates a proposal made and a "+" indicates a proposal accepted.
-Rejected elements are removed.
-
-"A" => ["-B", "D", "+F", "C", "E"],
-"B" => ["-E", "F", "+A", "C"],
-"C" => ["-D", "+E", "F", "A", "B"],
-"D" => ["-F", "+C", "A", "E"],
-"E" => ["-C", "D", "+B", "A"],
-"F" => ["-A", "B", "+D", "C"]
-=end
+#
+# Implements Phase I of Irving's (1985) Stable Roommates algorithm.
+#
+# See:
+# - https://en.wikipedia.org/wiki/Stable_roommates_problem
+# - https://www.youtube.com/watch?v=9Lo7TFAkohEaccepted_proposal?
+#
+# In this round each member who has not had their proposal accepted "proposes"
+# to their top remaining preference
+#
+# Each recipient of a proposal can take one of 3 actions -
+#
+# 1. The recipient has not received a previous proposal and immediately accepts
+#
+# 2. The recipient prefers this new proposal over an existing one.
+#    The recipient "rejects" it's initial proposl and accepts this new one
+#
+# 3. The recipient prefers the existing proposal over the new one.
+#    The recipient "rejects" the new proposal
+#
+# In the above situations, every rejection is mutual - if `i` removes `j` from
+# its preference list, then `j` must also remove `i` from its list
+#
+# This cycle continues until one of two things happens
+#
+# A. Every member has had their proposal accepted
+#     -> Move on to Phase II
+# B. At least one member has exhausted their preference list
+#     -> No solution exists
+#
+#
+# === EXAMPLE
+#
+# Take the following preference lists
+#
+#   A => [B, D, F, C, E],
+#   B => [D, E, F, A, C],
+#   C => [D, E, F, A, B],
+#   D => [F, C, A, E, B],
+#   E => [F, C, D, B, A],
+#   F => [A, B, D, C, E]
+#
+# We always start with the first unmatched user. Initially this is "A".
+# The sequence of events are -
+#
+#   'A' proposes to 'B'
+#   'B' accepts 'A'
+#   'B' proposes to 'D'
+#   'D' accepts 'B'
+#   'C' proposes to 'D'
+#   'D' accepts 'C', rejects 'B'
+#   'B' proposes to 'E'
+#   'E' accepts 'B'
+#   'D' proposes to 'F'
+#   'F' accepts 'D'
+#   'E' proposes to 'F'
+#   'F' rejects
+#   'E' proposes to 'C'
+#   'C' accepts 'E'
+#   'F' proposes to 'A'
+#   'A' accepts 'F'
+#
+# The result of this phase is shown below.
+# A "-" indicates a proposal made and a "+" indicates a proposal accepted.
+# Rejected elements are removed.
+#
+#   A => [-B, D, +F, C, E],
+#   B => [-E, F, +A, C],
+#   C => [-D, +E, F, A, B],
+#   D => [-F, +C, A, E],
+#   E => [-C, D, +B, A],
+#   F => [-A, B, +D, C]
 
 require_relative "../phase_runner"
 

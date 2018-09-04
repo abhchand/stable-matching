@@ -15,6 +15,24 @@ This gem provides ruby implementations of algorithms that solve the following ma
 - [Stable Roommates Problem](https://en.wikipedia.org/wiki/Stable_roommates_problem)
 - [Stable Marriage Problem](https://en.wikipedia.org/wiki/Stable_marriage_problem)
 
+# Install
+
+In your Gemfile:
+
+```
+source "https://rubygems.org"
+
+...
+
+gem "stable-matching"
+```
+
+Then run:
+
+```
+bundle install
+```
+
 # Quick Start
 
 ## Stable Roommates

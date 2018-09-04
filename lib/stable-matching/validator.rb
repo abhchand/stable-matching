@@ -15,7 +15,7 @@ class StableMatching
 
     # @abstract Subclass is expected to implement #validate!
     # @!method validate!
-    #    Validate the structure and content of the `preference_table` element
+    #    Validate the structure and content of the `preference_table`
 
     private
 
@@ -42,10 +42,10 @@ class StableMatching
 
     def strings_or_integers?
       @preference_table.each do |key, array|
-        @element_klass ||= key.class
+        @member_klass ||= key.class
 
-        return false unless valid_element?(key)
-        array.each { |value| return false unless valid_element?(value) }
+        return false unless valid_member?(key)
+        array.each { |value| return false unless valid_member?(value) }
       end
 
       true
@@ -81,13 +81,13 @@ class StableMatching
 
     def handle_not_symmetrical
       @error = "Entry #{@name} has invalid preferences. "\
-        "The extra elements are: #{@extra}. "\
-        "The missing elements are: #{@missing}"
+        "The extra members are: #{@extra}. "\
+        "The missing members are: #{@missing}"
     end
 
-    def valid_element?(element)
-      (element.is_a?(String) || element.is_a?(Integer)) &&
-        element.class == @element_klass
+    def valid_member?(member)
+      (member.is_a?(String) || member.is_a?(Integer)) &&
+        member.class == @member_klass
     end
   end
 end

@@ -142,10 +142,10 @@ class StableMatching
       end
 
       def retrieve_cycle(x, y)
-        repeated_element = x.detect { |i| x.count(i) > 1 }
+        repeated_member = x.detect { |i| x.count(i) > 1 }
 
         first_index = 1
-        last_index = x.count - x.reverse.index(repeated_element) - 1
+        last_index = x.count - x.reverse.index(repeated_member) - 1
 
         [x[first_index..last_index], y[first_index..last_index]]
       end

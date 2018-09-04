@@ -67,7 +67,7 @@
 #
 # The result of this phase is shown below.
 # A "-" indicates a proposal made and a "+" indicates a proposal accepted.
-# Rejected elements are removed.
+# Rejected members are removed.
 #
 #   A => [-B, D, +F, C, E],
 #   B => [-E, F, +A, C],

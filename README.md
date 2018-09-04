@@ -97,7 +97,7 @@ Below are some benchmarks for runtimes captured on a machine running OS X 10.11.
 
 You can run `bin/benchmark` on any machine to regenerate these benchmarks
 
-Note: Many combinatorics algorithms run in quadratic time (`O(n^2)`) and therfore performance degrades significantly when processing a large number of elements.
+Note: Many combinatorics algorithms run in quadratic time (`O(n^2)`) and therfore performance degrades significantly when processing a large number of members.
 
 ### Stable Roommates
 

@@ -59,7 +59,7 @@ RSpec.describe "Stable Roommate Validation", type: :service do
       end
     end
 
-    describe "element presence" do
+    describe "member presence" do
       it "raises an error when input is empty" do
         input = {}
 
@@ -88,7 +88,7 @@ RSpec.describe "Stable Roommate Validation", type: :service do
       end
     end
 
-    describe "element class" do
+    describe "member class" do
       it "raises an error when input keys are not strings or integers" do
         input = {
           1.to_f => [2, 3, 4],

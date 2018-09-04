@@ -71,6 +71,29 @@ RSpec.describe "Stable Roommate Problem", type: :integration do
     expect(actual).to eq(expected)
   end
 
+  it "does not run Phase III if Phase II provides a solution" do
+    # A and B prefer each other and C/D equally after that
+    # C and D prefer each other and A/B equally after that
+    # This results in A and B accepting each other's proposals and rejecting
+    # C and D after Phase II (and vice versa)
+    preferences = {
+      "A" => ["B", "C", "D"],
+      "B" => ["A", "C", "D"],
+      "C" => ["D", "A", "B"],
+      "D" => ["C", "B", "A"]
+    }
+
+    actual = StableMatching::Roommate.solve!(preferences)
+    expected = {
+      "A" => "B",
+      "B" => "A",
+      "C" => "D",
+      "D" => "C"
+    }
+
+    expect(actual).to eq(expected)
+  end
+
   context "no stable solution exists" do
     it "raises an error when phase I fails" do
       # All other rooommates prefer "D" the least and prefer each other
@@ -91,9 +114,10 @@ RSpec.describe "Stable Roommate Problem", type: :integration do
       )
     end
 
-    it "raises an error when a cycle is detected in Phase III" do
+    it "raises an error when a cycle exhausts all options in Phase III" do
       # Adapted from Irving's original paper as an example of a preference
-      # table where a cycle is detected in Phase III
+      # table where a cycle is detected in Phase III that exhausts all of
+      # a member's preference list
       # http://www.dcs.gla.ac.uk/~pat/jchoco/roommates/papers/Comp_sdarticle.pdf
 
       preferences = {
@@ -111,6 +135,11 @@ RSpec.describe "Stable Roommate Problem", type: :integration do
         StableMatching::NoStableSolutionError,
         "No stable match found!"
       )
+    end
+
+    it "raises error when multiple cycles exhaust all options in Phase III" do
+      # TBD: Have not yet been able to find a preference table that exhausts
+      # all of a member's preference list after finding multiple cycles
     end
   end
   # rubocop:enable Style/WordArray

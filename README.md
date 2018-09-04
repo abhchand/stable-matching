@@ -10,7 +10,7 @@ A ruby implementation of various stable matching algorithms.
 
 # Background
 
-This gem provides a ruby implementation of the following matching algorithms
+This gem provides ruby implementations of algorithms that solve the following matching problems:
 
 - [Stable Roommates Problem](https://en.wikipedia.org/wiki/Stable_roommates_problem)
 - [Stable Marriage Problem](https://en.wikipedia.org/wiki/Stable_marriage_problem)
